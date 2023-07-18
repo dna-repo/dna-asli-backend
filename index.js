@@ -8,6 +8,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const cookie_parser = require("cookie-parser");
+require('dotenv').config()
 
 const user_route = require("./routes/user_route");
 const auth_route = require("./routes/auth_route");
@@ -21,7 +22,8 @@ const disposisi_surat_routes = require("./routes/disposisi_routes")
 
 // initial setting
 const app = express();
-const URL = 3030;
+
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -30,7 +32,7 @@ app.use(cookie_parser());
 // end initial setting
 
 // start db connection
-mongoose.connect("mongodb://localhost:27017/ins", {
+mongoose.connect(`mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -44,11 +46,11 @@ db.on("open", () => {
 // end db connection
 
 // start server
-app.listen(URL, (err, success) => {
+app.listen(process.env.DB_PORT, (err, success) => {
   if (err) {
     console.log(err);
   } else {
-    console.log(`server start on : http://localhost/${URL}`);
+    console.log(`server start on : http://${process.env.DB_HOST}/${process.env.DB_HOST}`);
   }
 });
 // end start server
