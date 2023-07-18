@@ -46,11 +46,11 @@ db.on("open", () => {
 // end db connection
 
 // start server
-app.listen(process.env.DB_PORT, (err, success) => {
+app.listen(process.env.PORT, (err, success) => {
   if (err) {
     console.log(err);
   } else {
-    console.log(`server start on : http://${process.env.DB_HOST}/${process.env.DB_HOST}`);
+    console.log(`server start on : http://${process.env.DB_HOST}:${process.env.PORT}`);
   }
 });
 // end start server
